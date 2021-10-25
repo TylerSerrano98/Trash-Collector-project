@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 mysql-connector-python = "*"
+django-scheduler = "*"
+django-bower = "*"
 
 [dev-packages]
 
