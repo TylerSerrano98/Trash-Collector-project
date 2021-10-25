@@ -17,6 +17,7 @@ def index(request):
 
 
 def determine_day():
+    return
 
 
 
@@ -28,6 +29,7 @@ def determine_day():
 
 
 def confirm_pickup(request, customer_id):
+    return
 
 
 
@@ -36,6 +38,7 @@ def confirm_pickup(request, customer_id):
 
 
 def view_schedule(request, weekday):
+    return
 
 
 
@@ -44,9 +47,11 @@ def view_schedule(request, weekday):
 
 @login_required
 def create(request):
+    return
 
 
 
 
 @login_required
 def edit_profile(request):
+    return
