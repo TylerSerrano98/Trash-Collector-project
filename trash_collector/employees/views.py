@@ -19,7 +19,7 @@ def index(request):
         today = date.today()
         logged_in_employee_zipcode = logged_in_employee.zip_code
         Customer = apps.get_model('customers.Customer')
-        todays_customers = Customer.objects.filter(zipcode = logged_in_employee_zipcode)
+        todays_customers = Customer.objects.filter(zip_code = logged_in_employee_zipcode)
         context = {
             'todays_customers': todays_customers
         }
