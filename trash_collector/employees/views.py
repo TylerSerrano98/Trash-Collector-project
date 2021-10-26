@@ -2,6 +2,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.apps import apps
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+from django.urls import reverse
+from datetime import date
+from .models import Employee
 
 # Create your views here.
 
@@ -10,10 +14,18 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def index(request):
     logged_in_user = request.user
-    # This line will get the Customer model from the other app, it can now be used to query the db for Customers
-    Customer = apps.get_model('customers.Customer')
-    return render(request, 'employees/index.html')
-
+    try:
+        logged_in_employee = Employee.objects.get(logged_in_user)
+        today = date.today()
+        logged_in_employee_zipcode = logged_in_employee.zip_code
+        Customer = apps.get_model('customers,Customer')
+        todays_customers = Customer.objects.filter(zipcode = logged_in_employee_zipcode)
+        context = {
+            'todays_customers': todays_customers
+        }
+        return render(request, 'employees/index.html')
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect(reverse('employees:create'))
 
 
 def determine_day():
