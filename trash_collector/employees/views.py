@@ -29,6 +29,12 @@ def index(request):
 
 
 def determine_day():
+    
+
+
+
+
+
     return
 
 
