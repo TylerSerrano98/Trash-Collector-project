@@ -29,13 +29,7 @@ def index(request):
 
 
 def determine_day():
-    
-
-
-
-
-
-    return
+    pass
 
 
 
@@ -47,7 +41,7 @@ def determine_day():
 
 
 def confirm_pickup(request, customer_id):
-    return
+    pass
 
 
 
@@ -56,7 +50,7 @@ def confirm_pickup(request, customer_id):
 
 
 def view_schedule(request, weekday):
-    return
+    pass
 
 
 
@@ -65,11 +59,20 @@ def view_schedule(request, weekday):
 
 @login_required
 def create(request):
-    return
+    logged_in_user = request.user
+    if request.method == "POST":
+        name_from_form = request.POST.get('name')
+        address_from_from= request.POST.get('address')
+        zip_from_from= request.POST.get('address')
+        new_employee = Employee(name=name_from_form, user=logged_in_user, address=address_from_from, zip_code=zip_from_from)
+        new_employee.save()
+        return HttpResponseRedirect(reverse('employees:index'))
+    else:
+        return render(request, 'employees/create.html')
 
 
 
 
 @login_required
 def edit_profile(request):
-    return
+    pass
