@@ -85,9 +85,9 @@ def edit_profile(request):
         logged_in_user.address = address_from_form
         logged_in_user.zip_code = zip_from_form
         logged_in_user.save()
-        return HttpResponseRedirect(reverse('customers:index'))
+        return HttpResponseRedirect(reverse('employees:index'))
     else:
         context = {
-            'logged_in_customer': logged_in_user
+            'logged_in_employee': logged_in_user
         }
-        return render(request, 'customers/edit_profile.html', context)
+        return render(request, 'employees/edit_profile.html', context)
