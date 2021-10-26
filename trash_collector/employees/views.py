@@ -15,10 +15,10 @@ from .models import Employee
 def index(request):
     logged_in_user = request.user
     try:
-        logged_in_employee = Employee.objects.get(logged_in_user)
+        logged_in_employee = Employee.objects.get(user = logged_in_user)
         today = date.today()
         logged_in_employee_zipcode = logged_in_employee.zip_code
-        Customer = apps.get_model('customers,Customer')
+        Customer = apps.get_model('customers.Customer')
         todays_customers = Customer.objects.filter(zipcode = logged_in_employee_zipcode)
         context = {
             'todays_customers': todays_customers
@@ -29,7 +29,7 @@ def index(request):
 
 
 def determine_day():
-    return
+    pass
 
 
 
@@ -41,7 +41,7 @@ def determine_day():
 
 
 def confirm_pickup(request, customer_id):
-    return
+    pass
 
 
 
@@ -50,7 +50,7 @@ def confirm_pickup(request, customer_id):
 
 
 def view_schedule(request, weekday):
-    return
+    pass
 
 
 
@@ -59,11 +59,18 @@ def view_schedule(request, weekday):
 
 @login_required
 def create(request):
-    return
-
-
+    logged_in_user = request.user
+    if request.method == "POST":
+        name_from_form = request.POST.get('name')
+        address_from_from= request.POST.get('address')
+        zip_from_from= request.POST.get('address')
+        new_employee = Employee(name=name_from_form, user=logged_in_user, address=address_from_from, zip_code=zip_from_from)
+        new_employee.save()
+        return HttpResponseRedirect(reverse('employees:index'))
+    else:
+        return render(request, 'employees/create.html')
 
 
 @login_required
 def edit_profile(request):
-    return
+    pass
