@@ -1,12 +1,7 @@
-{% extends 'base.html' %}
-<head>
-  <title>Garbage Pick-up</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-{% block title %} Employee Home {% endblock %}
 
-{% block header %} Employee Portal {% endblock %}
+{% extends 'base.html' %}
+
+{% block title %}{% block header %} Employee Home {% endblock %}{% endblock %}
 
 {% block content %}
   {% if user.is_authenticated %}
@@ -18,15 +13,10 @@
   <br />
   <h3>Customers needing pick up in current Zip Code:</h3>
   {% for customer in todays_customers %}
-  <form action="{% url 'employees:index' %}" method="post">
-    {% csrf_token %}
-      ID: <input type="id" name="id" id="id" value="{{customer.id}}" readonly>
-      Name: <input type="name" name="name" id="name" value="{{customer.name}}" readonly>
-      Address: <input type="address" name="address" id="address" value="{{customer.address}}" readonly>
-      <input type="submit" value="Job Complete">
-  </form>
+    {{customer.name}}
   {% endfor %}
   
+
 
   <br />
   Today's date is: {{ date }}<br />
