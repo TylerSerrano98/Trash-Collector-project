@@ -5,8 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from datetime import date
-
-from trash_collector.customers.models import Customer
 from .models import Employee
 from datetime import datetime
 
@@ -39,13 +37,8 @@ def determine_day(request):
             'date': today
         }
     return render(request, 'employees/index.html', context)
-   
-    
-    
-def charge_customer(request):
-    if buttonclick:
-       Customer.balance + 20
 
+ 
 
 
 
