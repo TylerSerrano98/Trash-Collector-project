@@ -41,10 +41,9 @@ def determine_day(request):
    
     
     
-
-
-
-
+def charge_customer(request):
+    if buttonclick:
+       Customer.balance + 20
 
 
 
