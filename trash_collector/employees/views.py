@@ -24,7 +24,8 @@ def index(request):
         todays_customers = Customer.objects.filter(zip_code = logged_in_employee_zipcode)
         context = {
             'todays_customers': todays_customers,
-            'date': today
+            'date': today,
+            'logged_in_employee': logged_in_employee
         }
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
