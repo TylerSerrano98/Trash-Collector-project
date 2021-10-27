@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from datetime import date
 from .models import Employee
+from datetime import datetime
 
 # Create your views here.
 
@@ -15,21 +16,30 @@ from .models import Employee
 def index(request):
     logged_in_user = request.user
     try:
+        today = datetime.now
         logged_in_employee = Employee.objects.get(user = logged_in_user)
         today = date.today()
         logged_in_employee_zipcode = logged_in_employee.zip_code
         Customer = apps.get_model('customers.Customer')
         todays_customers = Customer.objects.filter(zip_code = logged_in_employee_zipcode)
         context = {
-            'todays_customers': todays_customers
+            'todays_customers': todays_customers,
+            'date': today
         }
-        return render(request, 'employees/index.html')
+        return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:create'))
 
 
-def determine_day():
-    pass
+def determine_day(request):
+    today = datetime.now
+    context = {
+            'date': today
+        }
+    return render(request, 'employees/index.html', context)
+   
+    
+    
 
 
 
