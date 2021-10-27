@@ -9,7 +9,7 @@
     <br />
     To view customer schedule, choose the day below (default is today):
     <br />
-    
+
  <form action="{% url 'employees:confirm_pickup' %}" method="POST">
      {% csrf_token %}
 
@@ -35,3 +35,11 @@
     Address: <input type="address" name="address" id="address" value="{{customer.address}}" readonly>
     <br />
 {% endfor %}
+
+
+{% else %}
+ <p>You are at the employee index, Please log in</p>
+ <a href="{% url 'login' %}">Log in</a>
+ <a href="{% url 'accounts:register' %}">Sign Up</a>
+ {% endif %}
+ {% endblock %}
