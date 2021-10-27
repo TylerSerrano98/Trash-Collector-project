@@ -50,8 +50,45 @@ def determine_day(request):
 
 
 
-def confirm_pickup(request, customer_id):
-    pass
+def confirm_pickup(request):
+    Customer = apps.get_model('customers.Customer')
+    logged_in_user = request.user
+
+    logged_in_employee = Employee.objects.get(user=logged_in_user)
+    employee_zip_code = logged_in_employee.zip_code
+
+    if request.method == "POST":
+        weekday_from_form = request.POST.get('days')
+
+        customer_match = Customer.objects.filter(zip_code=employee_zip_code)\
+            .filter(weekly_pickup = weekday_from_form)\
+
+        selected_day = weekday_from_form
+
+        context = {
+            'customer_match': customer_match,
+            'logged_in_employee': logged_in_employee,
+            'selected_day': selected_day
+        }
+
+        return render(request, 'employees/confirm_pickup.html', context)
+    else:
+        today = date.today()
+
+        days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+        today_weekday = days[today.weekday()]
+
+        customer_match = Customer.objects.filter(zip_code=employee_zip_code)\
+            .filter(weekly_pickup=today_weekday)
+
+        selected_day = today_weekday
+
+        context = {
+            'customer_match': customer_match,
+            'logged_in_employee': logged_in_employee,
+            'selected_day': selected_day 
+        }
+        return render(request, 'employees/weekday_pickup_search.html', context)
 
 
 
