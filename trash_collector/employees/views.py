@@ -13,17 +13,41 @@ from datetime import datetime
 
 @login_required
 def index(request):
+    Customer = apps.get_model('customers.Customer')
     logged_in_user = request.user
+    
+    if request.method == "POST":
+       today = date.today()
+       id_from_form = request.POST.get('id')
+       
+       complete_customer = Customer.objects.get(id=id_from_form)
+       complete_customer.date_of_last_pickup = today
+
+       complete_customer.balance += 20
+       complete_customer.save()
+
+       return HttpResponseRedirect(reverse('employees:index'))
+    
     try:
-        today = datetime.now
         logged_in_employee = Employee.objects.get(user = logged_in_user)
-        today = date.today()
         logged_in_employee_zipcode = logged_in_employee.zip_code
-        Customer = apps.get_model('customers.Customer')
-        todays_customers = Customer.objects.filter(zip_code = logged_in_employee_zipcode)
+        today = date.today()
+
+        days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+        today_weekday = days[today.weekday()]
+
+        todays_customers = Customer.objects.filter(zip_code = logged_in_employee_zipcode)\
+            .filter(weekly_pickup=today_weekday)\
+            .exclude(date_of_last_pickup=today)\
+            .exclude(suspend_start=today)\
+            .exclude(suspend_end=today)\
+            .exclude(one_time_pickup=today)
+        
         context = {
+            'logged_in_employee': logged_in_employee,
+            'today': today,
+            'today_weekday': today_weekday,
             'todays_customers': todays_customers,
-            'date': today
         }
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
@@ -36,17 +60,6 @@ def determine_day(request):
             'date': today
         }
     return render(request, 'employees/index.html', context)
-   
-    
-    
-def charge_customer(request):
-    if buttonclick:
-       Customer.balance + 20
- 
-
-
-
-
 
 def confirm_pickup(request):
     Customer = apps.get_model('customers.Customer')
@@ -87,20 +100,6 @@ def confirm_pickup(request):
             'selected_day': selected_day 
         }
         return render(request, 'employees/weekday_pickup_search.html', context)
-
-
-
-
-
-
-
-def view_schedule(request, weekday):
-    pass
-
-
-
-
-
 
 @login_required
 def create(request):
