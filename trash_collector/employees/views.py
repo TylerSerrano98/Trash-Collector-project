@@ -98,7 +98,7 @@ def confirm_pickup(request):
             'logged_in_employee': logged_in_employee,
             'selected_day': selected_day 
         }
-        return render(request, 'employees/weekday_pickup_search.html', context)
+        return render(request, 'employees/confirm_pickup.html', context)
 
 @login_required
 def create(request):
