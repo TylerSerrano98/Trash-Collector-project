@@ -7,7 +7,6 @@ from django.urls import reverse
 from datetime import date
 from .models import Employee
 from datetime import datetime
-
 # Create your views here.
 
 # TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
@@ -24,8 +23,7 @@ def index(request):
         todays_customers = Customer.objects.filter(zip_code = logged_in_employee_zipcode)
         context = {
             'todays_customers': todays_customers,
-            'date': today,
-            'logged_in_employee': logged_in_employee
+            'date': today
         }
         return render(request, 'employees/index.html', context)
     except ObjectDoesNotExist:
@@ -44,7 +42,6 @@ def determine_day(request):
 def charge_customer(request):
     if buttonclick:
        Customer.balance + 20
-
  
 
 
