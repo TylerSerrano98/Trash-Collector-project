@@ -7,7 +7,6 @@ from django.urls import reverse
 from datetime import date
 from .models import Employee
 from datetime import datetime
-
 # Create your views here.
 
 # TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
