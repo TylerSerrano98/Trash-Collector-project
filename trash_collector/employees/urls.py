@@ -11,5 +11,4 @@ urlpatterns = [
     path('edit_profile/', views.edit_profile, name='edit_profile'),
     path('<int:customer_id>/', views.confirm_pickup, name='confirm_pickup'),
     path('date/', views.determine_day, name="determine_day")
-
 ]
