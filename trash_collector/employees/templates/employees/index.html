@@ -24,7 +24,7 @@
       ID: <input type="id" name="id" id="id" value="{{customer.id}}" readonly>
       Name: <input type="name" name="name" id="name" value="{{customer.name}}" readonly>
       Address: <input type="address" name="address" id="address" value="{{customer.address}}" readonly>
-      <input type="button" id='script' name='Button' value=" Job Complete " onclick="goPython()">
+      <input type="button" class="btn btn-danger" id='script' name='Button' value=" Job Complete " onclick="goPython()">
       <br />
       <br />
   </form>
@@ -34,7 +34,7 @@
   
 
   <br />
-  Today's date is: {{ date }}<br />
+  <h3>Today's date is: {{ date }}</h3><br />
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
