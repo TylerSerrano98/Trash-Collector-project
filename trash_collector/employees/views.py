@@ -15,7 +15,6 @@ from datetime import datetime
 def index(request):
     Customer = apps.get_model('customers.Customer')
     logged_in_user = request.user
-    
     if request.method == "POST":
        today = date.today()
        id_from_form = request.POST.get('id')

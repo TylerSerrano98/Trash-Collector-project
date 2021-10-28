@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block navbar %}
-    <a class="nav-item nav-link" href="{% url 'employee:index' %}">Index</a>
-    <a class="nav-item nav-link" href="{% url 'employee:edit_profile' %}">Edit Profile</a>
-    <a class="nav-item nav-link" href="{% url 'employee:confirm_pickup' %}">Confirm Pickup</a>
+    <a class="nav-item nav-link" href="{% url 'employees:index' %}">Index</a>
+    <a class="nav-item nav-link" href="{% url 'employees:edit_profile' %}">Edit Profile</a>
+    <a class="nav-item nav-link" href="{% url 'employees:confirm_pickup' %}">Confirm Pickup</a>
 {% endblock %}
